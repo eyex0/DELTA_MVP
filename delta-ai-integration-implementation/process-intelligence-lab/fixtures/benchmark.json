@@ -1,0 +1,31 @@
+[
+  {
+    "id": "CASE-001",
+    "domain": "after-sales",
+    "difficulty": "simple",
+    "input": "Receive request. Validate request. Complete request.",
+    "gold": {
+      "schemaVersion": "1.0",
+      "processId": "CASE-001",
+      "title": "Simple request",
+      "actors": [],
+      "nodes": [
+        { "id": "N-START", "type": "start", "name": "Start", "inputs": [], "outputs": [], "conditions": [] },
+        { "id": "N-001", "type": "activity", "name": "Receive request", "inputs": [], "outputs": [], "conditions": [] },
+        { "id": "N-002", "type": "activity", "name": "Validate request", "inputs": [], "outputs": [], "conditions": [] },
+        { "id": "N-003", "type": "activity", "name": "Complete request", "inputs": [], "outputs": [], "conditions": [] },
+        { "id": "N-END", "type": "end", "name": "End", "inputs": [], "outputs": [], "conditions": [] }
+      ],
+      "transitions": [
+        { "id": "T-001", "from": "N-START", "to": "N-001", "type": "sequence" },
+        { "id": "T-002", "from": "N-001", "to": "N-002", "type": "sequence" },
+        { "id": "T-003", "from": "N-002", "to": "N-003", "type": "sequence" },
+        { "id": "T-004", "from": "N-003", "to": "N-END", "type": "sequence" }
+      ],
+      "businessRules": [],
+      "exceptions": [],
+      "loops": [],
+      "metadata": { "domain": "after-sales", "createdAt": "2026-01-01T00:00:00.000Z", "tags": [] }
+    }
+  }
+]

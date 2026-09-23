@@ -1,0 +1,6031 @@
+{
+  "experimentId": "MODEL-BATTLE-20260919222036",
+  "datasetVersion": "2.0.0",
+  "split": "validation",
+  "startedAt": "2026-09-19T22:20:36.467Z",
+  "completedAt": "2026-09-19T22:20:36.474Z",
+  "configuration": {
+    "caseCount": 20,
+    "evaluationMetrics": [
+      "nodePrecision",
+      "nodeRecall",
+      "relationshipAccuracy",
+      "decisionAccuracy",
+      "actorAssignmentAccuracy",
+      "exceptionRecall",
+      "loopAccuracy",
+      "parallelismAccuracy",
+      "structuralValidity",
+      "completeness",
+      "hallucinationRate",
+      "overall",
+      "latencyMs",
+      "cost"
+    ],
+    "validation": "validateProcessGraph v1.0"
+  },
+  "profiles": [
+    {
+      "id": "local-deterministic-v1",
+      "name": "DELTA deterministic baseline",
+      "version": "1.0",
+      "provider": "local",
+      "modelClass": "local"
+    },
+    {
+      "id": "cloud-foundry-configured",
+      "name": "Microsoft Foundry configured deployment",
+      "version": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm"
+    },
+    {
+      "id": "reasoning-model-configured",
+      "name": "Reasoning model endpoint",
+      "version": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model"
+    },
+    {
+      "id": "open-weight-configured",
+      "name": "Open-weight model endpoint",
+      "version": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight"
+    }
+  ],
+  "results": [
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-061",
+      "status": "measured",
+      "latencyMs": 2,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "A retail bank receives a service request",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "customer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The service desk registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the service desk notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.468Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-062",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "An insurance carrier receives a service request",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "customer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The service desk registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the service desk notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.469Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-063",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "A hospital network receives a service request",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "customer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The service desk registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the service desk notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.470Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-064",
+      "status": "measured",
+      "latencyMs": 1,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "A manufacturing plant receives a service request",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "customer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The service desk registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the service desk notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.470Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-065",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "A logistics provider receives a service request",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "customer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The service desk registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the service desk notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.471Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-066",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "A telecom operator receives a service request",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "customer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The service desk registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the service desk notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.471Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-067",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "A retail business receives a service request",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "customer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The service desk registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the service desk notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.471Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-068",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "An energy utility receives a service request",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "customer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The service desk registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the service desk notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.472Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-069",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "A public-service department receives a service request",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "customer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The service desk registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the service desk notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.472Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-070",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "A software company receives a service request",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "customer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The service desk registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the service desk notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.472Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-071",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "A retail bank receives a purchase order",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "buyer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The procurement team registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the procurement team notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.472Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-072",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "An insurance carrier receives a purchase order",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "buyer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The procurement team registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the procurement team notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.472Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-073",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "A hospital network receives a purchase order",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "buyer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The procurement team registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the procurement team notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.473Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-074",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "A manufacturing plant receives a purchase order",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "buyer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The procurement team registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the procurement team notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.473Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-075",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "A logistics provider receives a purchase order",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "buyer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The procurement team registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the procurement team notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.473Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-076",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "A telecom operator receives a purchase order",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "buyer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The procurement team registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the procurement team notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.474Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-077",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "A retail business receives a purchase order",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "buyer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The procurement team registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the procurement team notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.474Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-078",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "An energy utility receives a purchase order",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "buyer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The procurement team registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the procurement team notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.474Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-079",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "A public-service department receives a purchase order",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "buyer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The procurement team registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the procurement team notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.474Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "local-deterministic-v1",
+      "modelName": "DELTA deterministic baseline",
+      "modelVersion": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-080",
+      "status": "measured",
+      "latencyMs": 0,
+      "parsedGraph": {
+        "schemaVersion": "1.0",
+        "processId": "PROC-BASELINE",
+        "title": "Extracted process",
+        "actors": [
+          {
+            "id": "ACTOR-OPERATIONS",
+            "name": "Operations",
+            "type": "team"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "N-START",
+            "type": "start",
+            "name": "Start",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-001",
+            "type": "activity",
+            "name": "A software company receives a purchase order",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-002",
+            "type": "activity",
+            "name": "buyer submits the initial information",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-003",
+            "type": "activity",
+            "name": "The procurement team registers and validates the case",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-004",
+            "type": "decision",
+            "name": "If the case is incomplete, the team requests missing information and waits for a corrected resubmission before validating again",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-005",
+            "type": "decision",
+            "name": "If it is eligible, business review and system verification happen in parallel",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-006",
+            "type": "decision",
+            "name": "If both approve, the procurement team notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-007",
+            "type": "decision",
+            "name": "If either rejects, the team records an exception, then notifies the requester",
+            "actorId": "ACTOR-OPERATIONS",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          },
+          {
+            "id": "N-END",
+            "type": "end",
+            "name": "End",
+            "inputs": [],
+            "outputs": [],
+            "conditions": []
+          }
+        ],
+        "transitions": [
+          {
+            "id": "T-001",
+            "from": "N-START",
+            "to": "N-001",
+            "type": "sequence"
+          },
+          {
+            "id": "T-002",
+            "from": "N-001",
+            "to": "N-002",
+            "type": "sequence"
+          },
+          {
+            "id": "T-003",
+            "from": "N-002",
+            "to": "N-003",
+            "type": "sequence"
+          },
+          {
+            "id": "T-004",
+            "from": "N-003",
+            "to": "N-004",
+            "type": "sequence"
+          },
+          {
+            "id": "T-005",
+            "from": "N-004",
+            "to": "N-005",
+            "type": "sequence"
+          },
+          {
+            "id": "T-006",
+            "from": "N-005",
+            "to": "N-006",
+            "type": "sequence"
+          },
+          {
+            "id": "T-007",
+            "from": "N-006",
+            "to": "N-007",
+            "type": "sequence"
+          },
+          {
+            "id": "T-008",
+            "from": "N-007",
+            "to": "N-END",
+            "type": "sequence"
+          }
+        ],
+        "businessRules": [],
+        "exceptions": [],
+        "loops": [],
+        "metadata": {
+          "domain": "general",
+          "source": "text",
+          "model": "deterministic-baseline-v1",
+          "createdAt": "2026-09-19T22:20:36.474Z",
+          "tags": []
+        }
+      },
+      "validation": {
+        "valid": false,
+        "errors": [
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-004 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-005 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-006 must have at least two conditional branches"
+          },
+          {
+            "code": "INCOMPLETE_DECISION",
+            "severity": "error",
+            "message": "Decision N-007 must have at least two conditional branches"
+          }
+        ],
+        "warnings": [
+          {
+            "code": "NO_RULES",
+            "severity": "warning",
+            "message": "No business rules are present"
+          }
+        ]
+      },
+      "metrics": {
+        "nodePrecision": 0.2857,
+        "nodeRecall": 0.1667,
+        "transitionPrecision": 0.5,
+        "transitionRecall": 0.25,
+        "relationshipAccuracy": 0.375,
+        "decisionAccuracy": 1,
+        "actorAssignmentAccuracy": 0,
+        "exceptionRecall": 0,
+        "loopAccuracy": 0,
+        "parallelismAccuracy": 0,
+        "completeness": 0.2083,
+        "hallucinationRate": 0.7143,
+        "structuralValidity": 0,
+        "overall": 0.1735
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-061",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-062",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-063",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-064",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-065",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-066",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-067",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-068",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-069",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-070",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-071",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-072",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-073",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-074",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-075",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-076",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-077",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-078",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-079",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "cloud-foundry-configured",
+      "modelName": "Microsoft Foundry configured deployment",
+      "modelVersion": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-080",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "Foundry credentials are not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-061",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-062",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-063",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-064",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-065",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-066",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-067",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-068",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-069",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-070",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-071",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-072",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-073",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-074",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-075",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-076",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-077",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-078",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-079",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "reasoning-model-configured",
+      "modelName": "Reasoning model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-080",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "REASONING_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-061",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-062",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-063",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-064",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-065",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-066",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-067",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-068",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-069",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-070",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-071",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-072",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-073",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-074",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-075",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-076",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-077",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-078",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-079",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    },
+    {
+      "modelId": "open-weight-configured",
+      "modelName": "Open-weight model endpoint",
+      "modelVersion": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "datasetVersion": "2.0.0",
+      "split": "validation",
+      "promptVersion": "process-graph-v1",
+      "schemaVersion": "1.0",
+      "generation": {
+        "temperature": 0,
+        "maxAttempts": 2,
+        "promptVersion": "process-graph-v1",
+        "schemaVersion": "1.0"
+      },
+      "caseId": "B2-080",
+      "status": "unavailable",
+      "latencyMs": 0,
+      "error": {
+        "category": "provider_unavailable",
+        "message": "OPEN_WEIGHT_ENDPOINT is not configured"
+      }
+    }
+  ],
+  "summaries": [
+    {
+      "id": "local-deterministic-v1",
+      "name": "DELTA deterministic baseline",
+      "version": "1.0",
+      "provider": "local",
+      "modelClass": "local",
+      "status": "measured",
+      "measuredCases": 20,
+      "failedCases": 0,
+      "unavailableCases": 0,
+      "nodePrecision": 0.2857,
+      "nodeRecall": 0.1667,
+      "relationshipAccuracy": 0.375,
+      "decisionAccuracy": 1,
+      "actorAssignmentAccuracy": 0,
+      "exceptionRecall": 0,
+      "loopAccuracy": 0,
+      "parallelismAccuracy": 0,
+      "graphValidity": 0,
+      "completeness": 0.2083,
+      "hallucinationRate": 0.7143,
+      "overall": 0.1735,
+      "averageLatencyMs": 0.15,
+      "totalCost": 0,
+      "errors": {}
+    },
+    {
+      "id": "cloud-foundry-configured",
+      "name": "Microsoft Foundry configured deployment",
+      "version": "unconfigured",
+      "provider": "microsoft-foundry",
+      "modelClass": "cloud_llm",
+      "status": "unavailable",
+      "measuredCases": 0,
+      "failedCases": 0,
+      "unavailableCases": 20,
+      "nodePrecision": 0,
+      "nodeRecall": 0,
+      "relationshipAccuracy": 0,
+      "decisionAccuracy": 0,
+      "actorAssignmentAccuracy": 0,
+      "exceptionRecall": 0,
+      "loopAccuracy": 0,
+      "parallelismAccuracy": 0,
+      "graphValidity": 0,
+      "completeness": 0,
+      "hallucinationRate": 0,
+      "overall": 0,
+      "averageLatencyMs": 0,
+      "totalCost": 0,
+      "errors": {
+        "provider_unavailable": 20
+      }
+    },
+    {
+      "id": "reasoning-model-configured",
+      "name": "Reasoning model endpoint",
+      "version": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "reasoning_model",
+      "status": "unavailable",
+      "measuredCases": 0,
+      "failedCases": 0,
+      "unavailableCases": 20,
+      "nodePrecision": 0,
+      "nodeRecall": 0,
+      "relationshipAccuracy": 0,
+      "decisionAccuracy": 0,
+      "actorAssignmentAccuracy": 0,
+      "exceptionRecall": 0,
+      "loopAccuracy": 0,
+      "parallelismAccuracy": 0,
+      "graphValidity": 0,
+      "completeness": 0,
+      "hallucinationRate": 0,
+      "overall": 0,
+      "averageLatencyMs": 0,
+      "totalCost": 0,
+      "errors": {
+        "provider_unavailable": 20
+      }
+    },
+    {
+      "id": "open-weight-configured",
+      "name": "Open-weight model endpoint",
+      "version": "unconfigured",
+      "provider": "not-configured",
+      "modelClass": "open_weight",
+      "status": "unavailable",
+      "measuredCases": 0,
+      "failedCases": 0,
+      "unavailableCases": 20,
+      "nodePrecision": 0,
+      "nodeRecall": 0,
+      "relationshipAccuracy": 0,
+      "decisionAccuracy": 0,
+      "actorAssignmentAccuracy": 0,
+      "exceptionRecall": 0,
+      "loopAccuracy": 0,
+      "parallelismAccuracy": 0,
+      "graphValidity": 0,
+      "completeness": 0,
+      "hallucinationRate": 0,
+      "overall": 0,
+      "averageLatencyMs": 0,
+      "totalCost": 0,
+      "errors": {
+        "provider_unavailable": 20
+      }
+    }
+  ]
+}

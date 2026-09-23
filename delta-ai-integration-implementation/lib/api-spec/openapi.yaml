@@ -1,0 +1,995 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: DELTA implementation workflow API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+  - name: dashboard
+  - name: projects
+  - name: discovery
+  - name: requirements
+  - name: analysis
+  - name: approvals
+  - name: planning
+  - name: activity
+  - name: traceability
+  - name: agents
+  - name: workflows
+  - name: process-intelligence
+paths:
+  /workflows:
+    get:
+      operationId: listWorkflows
+      tags: [workflows]
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200": { description: Workflow definitions, content: { application/json: { schema: { type: array, items: { $ref: "#/components/schemas/Workflow" } } } } }
+    post:
+      operationId: createWorkflow
+      tags: [workflows]
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/WorkflowInput" }
+      responses:
+        "201": { description: Workflow created, content: { application/json: { schema: { $ref: "#/components/schemas/Workflow" } } } }
+  /workflows/{workflowId}/runs:
+    post:
+      operationId: startWorkflow
+      tags: [workflows]
+      security: [{ bearerAuth: [] }]
+      parameters: [{ name: workflowId, in: path, required: true, schema: { type: string, format: uuid } }]
+      responses:
+        "202": { description: Workflow queued, content: { application/json: { schema: { $ref: "#/components/schemas/WorkflowRun" } } } }
+  /workflow-runs/{runId}:
+    get:
+      operationId: getWorkflowRun
+      tags: [workflows]
+      security: [{ bearerAuth: [] }]
+      parameters: [{ name: runId, in: path, required: true, schema: { type: string, format: uuid } }]
+      responses:
+        "200": { description: Workflow run, content: { application/json: { schema: { $ref: "#/components/schemas/WorkflowRun" } } } }
+  /workflow-runs/{runId}/pause:
+    post:
+      operationId: pauseWorkflow
+      tags: [workflows]
+      security: [{ bearerAuth: [] }]
+      parameters: [{ name: runId, in: path, required: true, schema: { type: string, format: uuid } }]
+      responses: { "200": { description: Workflow paused } }
+  /workflow-runs/{runId}/resume:
+    post:
+      operationId: resumeWorkflow
+      tags: [workflows]
+      security: [{ bearerAuth: [] }]
+      parameters: [{ name: runId, in: path, required: true, schema: { type: string, format: uuid } }]
+      responses: { "200": { description: Workflow resumed } }
+  /workflow-runs/{runId}/approval:
+    post:
+      operationId: decideWorkflowApproval
+      tags: [workflows]
+      security: [{ bearerAuth: [] }]
+      parameters: [{ name: runId, in: path, required: true, schema: { type: string, format: uuid } }]
+      responses: { "200": { description: Approval recorded } }
+  /workflow-runs/{runId}/cancel:
+    post:
+      operationId: cancelWorkflow
+      tags: [workflows]
+      security: [{ bearerAuth: [] }]
+      parameters: [{ name: runId, in: path, required: true, schema: { type: string, format: uuid } }]
+      responses: { "200": { description: Workflow cancelled } }
+  /workflow-webhooks/{workflowId}:
+    post:
+      operationId: triggerWorkflowWebhook
+      tags: [workflows]
+      parameters: [{ name: workflowId, in: path, required: true, schema: { type: string, format: uuid } }, { name: x-delta-webhook-secret, in: header, required: true, schema: { type: string } }]
+      responses: { "202": { description: Workflow queued } }
+  /auth/register:
+    post:
+      operationId: registerUser
+      tags: [auth]
+      summary: Register an organization and first user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterInput"
+      responses:
+        "200":
+          description: Authenticated user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /auth/login:
+    post:
+      operationId: loginUser
+      tags: [auth]
+      summary: Log in with email/password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginInput"
+      responses:
+        "200":
+          description: Authenticated user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /auth/me:
+    get:
+      operationId: getCurrentUser
+      tags: [auth]
+      summary: Get the current authenticated user
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200":
+          description: User record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CurrentUserResponse"
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /dashboard:
+    get:
+      operationId: getDashboard
+      tags: [dashboard]
+      summary: Get operational dashboard summary
+      responses:
+        "200":
+          description: Dashboard summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dashboard"
+  /projects:
+    get:
+      operationId: listProjects
+      tags: [projects]
+      summary: List implementation projects
+      responses:
+        "200":
+          description: Projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+    post:
+      operationId: createProject
+      tags: [projects]
+      summary: Create an implementation project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectInput"
+      responses:
+        "201":
+          description: Created project
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+  /projects/{projectId}:
+    get:
+      operationId: getProject
+      tags: [projects]
+      summary: Get a project
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: Project
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectDetail"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    patch:
+      operationId: updateProject
+      tags: [projects]
+      summary: Update project metadata
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectUpdate"
+      responses:
+        "200":
+          description: Updated project
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+  /projects/{projectId}/discovery/run:
+    post:
+      operationId: runDiscovery
+      tags: [discovery]
+      summary: Run the Discovery Agent
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DiscoveryInput"
+      responses:
+        "200":
+          description: Discovery result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DiscoveryResult"
+  /projects/{projectId}/requirements:
+    get:
+      operationId: listRequirements
+      tags: [requirements]
+      summary: List project requirements
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: Requirements
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Requirement"
+  /requirements/{requirementId}:
+    patch:
+      operationId: updateRequirement
+      tags: [requirements]
+      summary: Update a requirement
+      parameters:
+        - $ref: "#/components/parameters/RequirementId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RequirementUpdate"
+      responses:
+        "200":
+          description: Updated requirement
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Requirement"
+  /projects/{projectId}/analysis:
+    get:
+      operationId: getAnalysis
+      tags: [analysis]
+      summary: Get analysis output
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: Analysis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Analysis"
+    post:
+      operationId: runAnalysis
+      tags: [analysis]
+      summary: Run the Analysis Agent
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: Analysis output
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Analysis"
+  /projects/{projectId}/approvals:
+    get:
+      operationId: listApprovals
+      tags: [approvals]
+      summary: List project approvals
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: Approvals
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Approval"
+  /approvals/{approvalId}/decision:
+    post:
+      operationId: decideApproval
+      tags: [approvals]
+      summary: Record a human approval decision
+      parameters:
+        - $ref: "#/components/parameters/ApprovalId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApprovalDecision"
+      responses:
+        "200":
+          description: Updated approval
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Approval"
+  /projects/{projectId}/implementation-plan:
+    get:
+      operationId: getImplementationPlan
+      tags: [planning]
+      summary: Get implementation plan
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: Implementation plan
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImplementationPlan"
+    post:
+      operationId: generateImplementationPlan
+      tags: [planning]
+      summary: Generate implementation plan
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: Implementation plan
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImplementationPlan"
+  /projects/{projectId}/activity:
+    get:
+      operationId: listActivity
+      tags: [activity]
+      summary: Get project activity timeline
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: Activity
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActivityEvent"
+  /projects/{projectId}/traceability:
+    get:
+      operationId: getTraceability
+      tags: [traceability]
+      summary: Get requirement-to-outcome traceability
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: Traceability
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TraceabilityLink"
+  /agents/run:
+    post:
+      operationId: runAgent
+      tags: [agents]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: async
+          in: query
+          required: false
+          schema: { type: boolean, default: false }
+        - name: Idempotency-Key
+          in: header
+          required: false
+          schema: { type: string, maxLength: 200 }
+      summary: Run the authenticated DELTA agent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AgentRunInput"
+      responses:
+        "200":
+          description: Agent execution result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgentRunResult"
+        "202":
+          description: Agent execution queued when async=true
+  /agent-runs/{runId}:
+    get:
+      operationId: getAgentRun
+      tags: [agents]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: runId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: Persisted agent run and execution steps
+  /agent-runs/{runId}/cancel:
+    post:
+      operationId: cancelAgentRun
+      tags: [agents]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: runId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: Cancellation request accepted
+  /agent-runs/{runId}/events:
+    get:
+      operationId: streamAgentRunEvents
+      tags: [agents]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: runId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: Authenticated server-sent execution events
+          content:
+            text/event-stream:
+              schema:
+                type: string
+  /tasks/{taskId}:
+    get:
+      operationId: getTask
+      tags: [agents]
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: Task created or assigned by the agent
+  /process/parse:
+    post:
+      operationId: parseProcess
+      tags: [process-intelligence]
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ProcessParseInput" }
+      responses:
+        "200":
+          description: Parsed canonical process graph and validation result
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ProcessParseResponse" }
+        "400": { $ref: "#/components/responses/ValidationError" }
+  /process/validate:
+    post:
+      operationId: validateProcess
+      tags: [process-intelligence]
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ProcessGraphInput" }
+      responses:
+        "200":
+          description: Canonical graph validation result
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ProcessValidateResponse" }
+        "400": { $ref: "#/components/responses/ValidationError" }
+  /process/evaluate:
+    post:
+      operationId: evaluateProcess
+      tags: [process-intelligence]
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ProcessEvaluateInput" }
+      responses:
+        "200":
+          description: Candidate graph evaluation against a reference graph
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ProcessEvaluateResponse" }
+        "400": { $ref: "#/components/responses/ValidationError" }
+  /benchmark/cases:
+    get:
+      operationId: listBenchmarkCases
+      tags: [process-intelligence]
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200":
+          description: Deterministic benchmark cases available to the API
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { type: object, additionalProperties: true }
+  /knowledge/documents:
+    post:
+      operationId: ingestKnowledgeDocument
+      tags: [agents]
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/KnowledgeDocumentInput" }
+      responses:
+        "201":
+          description: Knowledge document ingested
+          content:
+            application/json:
+              schema: { type: object, additionalProperties: true }
+        "400": { $ref: "#/components/responses/ValidationError" }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      schema: { type: string }
+    RequirementId:
+      name: requirementId
+      in: path
+      required: true
+      schema: { type: string }
+    ApprovalId:
+      name: approvalId
+      in: path
+      required: true
+      schema: { type: string }
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    ValidationError:
+      description: Request validation failed
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+  schemas:
+    ProcessParseInput:
+      type: object
+      properties:
+        text: { type: string, minLength: 1 }
+        input: { type: string, minLength: 1 }
+    ProcessGraphInput:
+      type: object
+      required: [process]
+      properties:
+        process: { $ref: "#/components/schemas/ProcessGraph" }
+        graph: { $ref: "#/components/schemas/ProcessGraph" }
+    ProcessEvaluateInput:
+      type: object
+      required: [candidate, reference]
+      properties:
+        candidate: { $ref: "#/components/schemas/ProcessGraph" }
+        modelOutput: { $ref: "#/components/schemas/ProcessGraph" }
+        reference: { $ref: "#/components/schemas/ProcessGraph" }
+        goldProcess: { $ref: "#/components/schemas/ProcessGraph" }
+    ProcessParseResponse:
+      type: object
+      required: [process, validation, confidence, metadata]
+      properties:
+        process: { $ref: "#/components/schemas/ProcessGraph" }
+        validation: { $ref: "#/components/schemas/ProcessValidation" }
+        confidence: { type: number }
+        metadata:
+          type: object
+          additionalProperties: { type: string }
+    ProcessValidateResponse:
+      type: object
+      required: [process, validation]
+      properties:
+        process: { $ref: "#/components/schemas/ProcessGraph" }
+        validation: { $ref: "#/components/schemas/ProcessValidation" }
+    ProcessEvaluateResponse:
+      type: object
+      required: [metrics, validation]
+      properties:
+        metrics: { type: object, additionalProperties: true }
+        validation: { $ref: "#/components/schemas/ProcessValidation" }
+    ProcessValidation:
+      type: object
+      required: [valid, errors, warnings, confidence]
+      properties:
+        valid: { type: boolean }
+        errors: { type: array, items: { type: string } }
+        warnings: { type: array, items: { type: string } }
+        confidence: { type: number }
+    ProcessGraph:
+      type: object
+      required: [schemaVersion, processId, title, metadata, actors, nodes, transitions, decisions, businessRules, exceptions, loops]
+      properties:
+        schemaVersion: { type: string, enum: ["1.0"] }
+        processId: { type: string }
+        title: { type: string }
+        metadata: { type: object, additionalProperties: true }
+        actors: { type: array, items: { type: object, additionalProperties: true } }
+        nodes: { type: array, items: { type: object, additionalProperties: true } }
+        transitions: { type: array, items: { type: object, additionalProperties: true } }
+        decisions: { type: array, items: { type: object, additionalProperties: true } }
+        businessRules: { type: array, items: { type: object, additionalProperties: true } }
+        exceptions: { type: array, items: { type: object, additionalProperties: true } }
+        loops: { type: array, items: { type: object, additionalProperties: true } }
+        evidence: { type: array, items: { $ref: "#/components/schemas/ProcessEvidence" } }
+    ProcessEvidence:
+      type: object
+      required: [id, source, quote]
+      properties:
+        id: { type: string }
+        source: { type: string }
+        quote: { type: string }
+        start: { type: integer, minimum: 0 }
+        end: { type: integer, minimum: 0 }
+        confidence: { type: number, minimum: 0, maximum: 1 }
+    RegisterInput:
+      type: object
+      required: [email, password, organization_name]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string, minLength: 10 }
+        organization_name: { type: string, minLength: 2 }
+    LoginInput:
+      type: object
+      required: [email, password]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string, minLength: 1 }
+    AuthUser:
+      type: object
+      required: [id, email, role]
+      properties:
+        id: { type: string, format: uuid }
+        email: { type: string, format: email }
+        role: { type: string }
+    AuthResponse:
+      type: object
+      required: [token, user]
+      properties:
+        token: { type: string }
+        user: { $ref: "#/components/schemas/AuthUser" }
+    CurrentUserResponse:
+      type: object
+      required: [user]
+      properties:
+        user: { $ref: "#/components/schemas/AuthUser" }
+    WorkflowInput:
+      type: object
+      required: [name, triggerType, steps]
+      properties:
+        name: { type: string }
+        description: { type: string }
+        workspaceId: { type: string }
+        triggerType: { type: string, enum: [manual, ai, scheduled, event, webhook] }
+        scheduleAt: { type: string, format: date-time }
+        steps: { type: array, items: { type: object, required: [id, type], properties: { id: { type: string }, type: { type: string }, input: { type: object, additionalProperties: true } } } }
+    Workflow:
+      allOf:
+        - $ref: "#/components/schemas/WorkflowInput"
+        - type: object
+          required: [id, organizationId, enabled]
+          properties:
+            id: { type: string, format: uuid }
+            organizationId: { type: string, format: uuid }
+            enabled: { type: boolean }
+            webhookSecret: { type: string }
+    WorkflowRun:
+      type: object
+      required: [id, workflowId, organizationId, status, currentStep, input, stepResults, errors]
+      properties:
+        id: { type: string, format: uuid }
+        workflowId: { type: string, format: uuid }
+        organizationId: { type: string, format: uuid }
+        status: { type: string, enum: [queued, running, waiting, waiting_for_approval, paused, completed, failed, cancelled] }
+        currentStep: { type: integer }
+        input: { type: object, additionalProperties: true }
+        stepResults: { type: array, items: { type: object, additionalProperties: true } }
+        errors: { type: array, items: { type: object, additionalProperties: true } }
+    AgentRunInput:
+      type: object
+      required: [request]
+      properties:
+        request: { type: string, minLength: 1, maxLength: 10000 }
+        projectId: { type: string, format: uuid }
+    KnowledgeDocumentInput:
+      type: object
+      required: [title, content]
+      properties:
+        title: { type: string, minLength: 1, maxLength: 500 }
+        source: { type: string, maxLength: 1000 }
+        sourceType: { type: string, maxLength: 100 }
+        projectId: { type: string, format: uuid }
+        content: { type: string, minLength: 1, maxLength: 2000000 }
+    AgentRunResult:
+      type: object
+      required: [status, steps]
+      properties:
+        status:
+          type: string
+          enum: [completed, approval_required, escalated, failed, cancelled]
+        response: { type: string }
+        reason: { type: string }
+        steps: { type: integer }
+    HealthStatus:
+      type: object
+      properties:
+        status: { type: string }
+      required: [status]
+    Error:
+      type: object
+      properties:
+        error: { type: string }
+      required: [error]
+    Project:
+      type: object
+      required: [id, name, description, industry, objective, status, lifecycleStage, progress, requirementsCount, openDecisions, risks, pendingApprovals, updatedAt]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        description: { type: string }
+        industry: { type: string }
+        objective: { type: string }
+        status: { type: string }
+        lifecycleStage: { type: string }
+        progress: { type: integer }
+        requirementsCount: { type: integer }
+        openDecisions: { type: integer }
+        risks: { type: integer }
+        pendingApprovals: { type: integer }
+        updatedAt: { type: string }
+    ProjectDetail:
+      allOf:
+        - $ref: "#/components/schemas/Project"
+        - type: object
+          required: [owner, createdAt]
+          properties:
+            owner: { type: string }
+            createdAt: { type: string }
+    ProjectInput:
+      type: object
+      required: [name, description, industry, objective]
+      properties:
+        name: { type: string, minLength: 1 }
+        description: { type: string }
+        industry: { type: string }
+        objective: { type: string }
+    ProjectUpdate:
+      type: object
+      properties:
+        name: { type: string }
+        description: { type: string }
+        objective: { type: string }
+        lifecycleStage: { type: string }
+    DiscoveryInput:
+      type: object
+      required: [content]
+      properties:
+        content: { type: string, minLength: 1 }
+        sourceType: { type: string }
+    DiscoveryResult:
+      type: object
+      required: [runId, status, summary, objectives, stakeholders, assumptions, openQuestions, risks, requirementsCreated, completedAt]
+      properties:
+        runId: { type: string }
+        status: { type: string }
+        summary: { type: string }
+        objectives:
+          type: array
+          items: { type: string }
+        stakeholders:
+          type: array
+          items: { type: string }
+        assumptions:
+          type: array
+          items: { type: string }
+        openQuestions:
+          type: array
+          items: { type: string }
+        risks:
+          type: array
+          items: { type: string }
+        requirementsCreated: { type: integer }
+        completedAt: { type: string }
+    Requirement:
+      type: object
+      required: [id, projectId, title, description, source, priority, status, owner, confidence, dependencies, linkedProcess, linkedDecision, linkedOutput]
+      properties:
+        id: { type: string }
+        projectId: { type: string }
+        title: { type: string }
+        description: { type: string }
+        source: { type: string }
+        priority: { type: string }
+        status: { type: string }
+        owner: { type: string }
+        confidence: { type: integer }
+        dependencies:
+          type: array
+          items: { type: string }
+        linkedProcess: { type: string }
+        linkedDecision: { type: string }
+        linkedOutput: { type: string }
+    RequirementUpdate:
+      type: object
+      properties:
+        title: { type: string }
+        description: { type: string }
+        priority: { type: string }
+        status: { type: string }
+    Analysis:
+      type: object
+      required: [id, projectId, status, requirementsAnalyzed, validated, ambiguous, conflicts, missingDependencies, risks, recommendations, openDecisions, completedAt]
+      properties:
+        id: { type: string }
+        projectId: { type: string }
+        status: { type: string }
+        requirementsAnalyzed: { type: integer }
+        validated: { type: integer }
+        ambiguous: { type: integer }
+        conflicts: { type: integer }
+        missingDependencies: { type: integer }
+        risks:
+          type: array
+          items: { type: string }
+        recommendations:
+          type: array
+          items: { type: string }
+        openDecisions:
+          type: array
+          items: { type: string }
+        completedAt: { type: string }
+    Approval:
+      type: object
+      required: [id, projectId, title, description, source, status, requestedAt, decisionBy, comment]
+      properties:
+        id: { type: string }
+        projectId: { type: string }
+        title: { type: string }
+        description: { type: string }
+        source: { type: string }
+        status: { type: string }
+        requestedAt: { type: string }
+        decidedAt: { type: ["string", "null"] }
+        decisionBy: { type: string }
+        comment: { type: string }
+    ApprovalDecision:
+      type: object
+      required: [decision]
+      properties:
+        decision:
+          type: string
+          enum: [approved, changes_requested, rejected, escalated]
+        comment: { type: string }
+    ImplementationTask:
+      type: object
+      required: [id, title, workstream, owner, status, priority, dependencies, sequence, linkedRequirements]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        workstream: { type: string }
+        owner: { type: string }
+        status: { type: string }
+        priority: { type: string }
+        dependencies:
+          type: array
+          items: { type: string }
+        sequence: { type: integer }
+        linkedRequirements:
+          type: array
+          items: { type: string }
+    ImplementationPlan:
+      type: object
+      required: [id, projectId, status, summary, tasks, generatedAt]
+      properties:
+        id: { type: string }
+        projectId: { type: string }
+        status: { type: string }
+        summary: { type: string }
+        generatedAt: { type: string }
+        tasks:
+          type: array
+          items:
+            $ref: "#/components/schemas/ImplementationTask"
+    ActivityEvent:
+      type: object
+      required: [id, projectId, timestamp, actor, title, detail, type]
+      properties:
+        id: { type: string }
+        projectId: { type: string }
+        timestamp: { type: string }
+        actor: { type: string }
+        title: { type: string }
+        detail: { type: string }
+        type: { type: string }
+    TraceabilityLink:
+      type: object
+      required: [objective, source, requirement, analysis, decision, task, outcome]
+      properties:
+        objective: { type: string }
+        source: { type: string }
+        requirement: { type: string }
+        analysis: { type: string }
+        decision: { type: string }
+        task: { type: string }
+        outcome: { type: string }
+    Dashboard:
+      type: object
+      required: [activeProjects, agentsWorking, pendingApprovals, requirements, risks, decisions, completionRate, recentActivity, projects]
+      properties:
+        activeProjects: { type: integer }
+        agentsWorking: { type: integer }
+        pendingApprovals: { type: integer }
+        requirements: { type: integer }
+        risks: { type: integer }
+        decisions: { type: integer }
+        completionRate: { type: integer }
+        recentActivity:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActivityEvent"
+        projects:
+          type: array
+          items:
+            $ref: "#/components/schemas/Project"

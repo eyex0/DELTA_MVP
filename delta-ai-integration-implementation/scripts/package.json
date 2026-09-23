@@ -1,0 +1,25 @@
+{
+  "name": "@workspace/scripts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "hello": "tsx ./src/hello.ts",
+    "validate:postgres": "node --env-file=../.env --import tsx ./src/postgres-validation.ts",
+    "test:tenant-context": "node --env-file=../.env --import tsx ./src/tenant-context-regression.ts",
+    "smoke:local": "node --env-file=../.env --import tsx ./src/local-smoke.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@workspace/db": "workspace:*",
+    "bcryptjs": "^3.0.3",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/pg": "^8.23.1",
+    "@types/node": "catalog:",
+    "tsx": "catalog:"
+  }
+}
