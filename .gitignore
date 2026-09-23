@@ -1,22 +1,17 @@
 ﻿# ============================================================
-# DELTA MVP - Git Ignore
+# DELTA
+# Enterprise AI Platform
 # ============================================================
 
 # Dependencies
 node_modules/
 .pnpm-store/
-.npm/
 
-# Environment / Secrets
+# Environment
 .env
 .env.*
 !.env.example
 !.env.example.*
-*.secret
-*.secrets
-secrets/
-credentials/
-credentials.json
 
 # Build
 dist/
@@ -26,16 +21,21 @@ build/
 out/
 coverage/
 
-# Development tools / AI agents
+# Development / AI tools
 .kilo/
 .copilot-azure/
 .cursor/
-.vscode/
 .idea/
+.vscode/
 
 # Temporary worktrees
 .worktrees/
 worktrees/
+
+# Cache
+.cache/
+.turbo/
+.eslintcache/
 
 # Logs
 *.log
@@ -43,33 +43,24 @@ npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*
 
-# Cache
-.cache/
-.turbo/
-.eslintcache
-.parcel-cache/
+# Secrets
+*.pem
+*.key
+*.p12
+*.pfx
+credentials/
+secrets/
 
 # OS
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# Temporary files
+# Temporary
 *.tmp
 *.temp
 *.swp
 *.swo
-
-# Certificates / private keys
-*.pem
-*.key
-*.p12
-*.pfx
-
-# Archives / generated packages
-*.zip
-*.tar
-*.tar.gz
 
 # Local databases
 *.sqlite
@@ -80,8 +71,5 @@ desktop.ini
 test-results/
 playwright-report/
 
-# Vercel / deployment local state
+# Deployment
 .vercel/
-
-# Misc
-.DS_Store
