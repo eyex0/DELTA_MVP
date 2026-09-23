@@ -1,0 +1,87 @@
+﻿# ============================================================
+# DELTA MVP - Git Ignore
+# ============================================================
+
+# Dependencies
+node_modules/
+.pnpm-store/
+.npm/
+
+# Environment / Secrets
+.env
+.env.*
+!.env.example
+!.env.example.*
+*.secret
+*.secrets
+secrets/
+credentials/
+credentials.json
+
+# Build
+dist/
+build/
+.vite/
+.next/
+out/
+coverage/
+
+# Development tools / AI agents
+.kilo/
+.copilot-azure/
+.cursor/
+.vscode/
+.idea/
+
+# Temporary worktrees
+.worktrees/
+worktrees/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+
+# Cache
+.cache/
+.turbo/
+.eslintcache
+.parcel-cache/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Certificates / private keys
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Archives / generated packages
+*.zip
+*.tar
+*.tar.gz
+
+# Local databases
+*.sqlite
+*.sqlite3
+*.db
+
+# Test output
+test-results/
+playwright-report/
+
+# Vercel / deployment local state
+.vercel/
+
+# Misc
+.DS_Store
