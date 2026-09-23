@@ -1,0 +1,9 @@
+{
+  "name": "@workspace/worker",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "dev": "tsx src/agent-worker.ts", "typecheck": "tsc -p tsconfig.json --noEmit" },
+  "dependencies": { "@workspace/ai": "workspace:*", "@workspace/db": "workspace:*", "@workspace/knowledge": "workspace:*", "drizzle-orm": "catalog:" },
+  "devDependencies": { "@types/node": "catalog:", "tsx": "catalog:", "typescript": "catalog:" }
+}

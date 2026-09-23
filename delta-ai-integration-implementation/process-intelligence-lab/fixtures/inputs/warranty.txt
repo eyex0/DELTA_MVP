@@ -1,1 +1,0 @@
-A customer submits a warranty request. The service team verifies the serial number. If the product is under warranty, the technician performs remote diagnosis. Otherwise, the service team sends a quotation. The customer accepts or rejects the quotation.

@@ -1,0 +1,31 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/core"
+    },
+    {
+      "path": "./packages/database"
+    },
+    {
+      "path": "./packages/ai"
+    },
+    {
+      "path": "./packages/knowledge"
+    },
+    {
+      "path": "./packages/workflows"
+    },
+    {
+      "path": "./packages/shared"
+    },
+    {
+      "path": "./packages/api-spec"
+    },
+    {
+      "path": "./packages/api-zod"
+    }
+  ]
+}
